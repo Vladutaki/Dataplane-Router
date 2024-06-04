@@ -1,0 +1,17 @@
+====================================
+Tema 1 - Protocoale de Comunicatii
+Nume - Andrei Vladut-Nicolae
+Grupa - 331CC
+====================================
+Pentru implementarea dataplane-ului acestui router a trebuit initial sa parsez intrarile din tabela de rutare si din arp_table.txt (nu am implementat functionalitatile de ARP). Apoi, pentru a rezolva cerinta cu LPM, am ales sa folosesc un arbore Trie, asa ca, fiecare intrare din tabela de rutare o converteam in binar si o adaugam ca intrare in arbore.
+
+Apoi am inceput sa primesc pachetele si le verificam header-ul de ethernet sa fie corespunzator pentru IP. Verificam adresa destinatiei pachetului iar daca era la fel cu cea a interfetei router-ului, implementam un simple_icmp unde modificam datele relevante si adresele pentru urmatoarea destinatie.
+
+Daca router-ul nu era adresa pachetului, verificam checksum-ul si ttl-ul. Dupa aceea cautam cea mai buna pe unde sa fie trimis pachetul cu ajutorul arborelui Trie format la inceput, si trimiteam pachetul la acea interfata.
+
+Daca ttl-ul era expirat sau daca nu exista cea mai buna ruta de trimis, atunci implementam reconstituirea pachetului intr-unul ICMP. In functia icmp modificat header-ul de ethernet, ip, icmp si toate datele relevante din acestea si le puneam intr un nou pachet care urma sa fie trimis.
+
+Pentru mai multe detalii, am implementat comentarii in zonele importante din codul sursa.
+
+Mi-a placut foarte mult aceasta tema deoarece am inteles mult mai bine cum se lucreaza cu traficul de internet intr-o retea, pachetele care sunt trimise si cum pot fi modificate acestea. Timpul de lucru a fost de aproximativ 4-5 zile, dar mi-as fi dorit sa aloc mai mult timp de lucru acestei teme si pentru a implementa functionalitatile ARP.
+====================================
